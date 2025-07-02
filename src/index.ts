@@ -15,7 +15,10 @@ connectDB();
 app.use([express.json(), express.urlencoded({ extended: true })]);
 app.use(
   cors({
-    origin: "https://library-management-b5a4.vercel.app", // Or wherever your React app runs
+    origin: [
+      "https://library-management-b5a4.vercel.app",
+      "https://books.mdranju.xyz",
+    ], // Or wherever your React app runs
     credentials: true,
   })
 );
