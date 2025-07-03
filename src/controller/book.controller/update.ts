@@ -6,19 +6,26 @@ const updateBook = async (req: Request, res: Response) => {
     const { bookId } = req.params;
     const { title, author, isbn, copies, description, available, image } =
       req.body;
-    const book = await Book.findByIdAndUpdate(
-      bookId,
-      {
-        title,
-        author,
-        isbn,
-        description,
-        copies,
-        available,
-        image,
-      },
-      { new: true }
-    );
+
+    const book = await Book.findById({ _id: bookId });
+
+    if (!book) {
+      res.status(404).json({
+        success: false,
+        message: "Book not found",
+        data: null,
+      });
+      return;
+    }
+    (book.title = title ?? book?.title),
+      (book.author = author ?? book?.author),
+      (book.isbn = isbn ?? book?.isbn),
+      (book.description = description ?? book?.description),
+      (book.copies = copies ?? book?.copies),
+      (book.available = copies > 0 ? true : false),
+      (book.image = image ?? book?.image),
+      await book.save();
+
     res.status(200).json({
       success: true,
       message: "Book updated successfully",

@@ -18,6 +18,8 @@ app.use(
     origin: [
       "https://library-management-b5a4.vercel.app",
       "https://books.mdranju.xyz",
+      "http://localhost:5174",
+      "http://localhost:5173",
     ], // Or wherever your React app runs
     credentials: true,
   })
